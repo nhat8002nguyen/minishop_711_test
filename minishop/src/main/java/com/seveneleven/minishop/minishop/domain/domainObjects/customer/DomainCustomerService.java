@@ -1,29 +1,46 @@
 package com.seveneleven.minishop.minishop.domain.domainObjects.customer;
 
+import java.util.List;
+
 import com.seveneleven.minishop.minishop.domain.domainObjects.order.Order;
+import com.seveneleven.minishop.minishop.domain.domainObjects.product.Product;
+import com.seveneleven.minishop.minishop.domain.repositories.OrderRepository;
+import com.seveneleven.minishop.minishop.domain.repositories.ProductRepository;
 import com.seveneleven.minishop.minishop.domain.services.CustomerService;
-import com.seveneleven.minishop.minishop.domain.services.OrderService;
 
 public class DomainCustomerService implements CustomerService {
-	private final OrderService orderService;
+	private final OrderRepository orderRepository;
+	private final ProductRepository productRepository;
 
-	public DomainCustomerService(OrderService orderService) {
-		this.orderService = orderService;
+	public DomainCustomerService(
+			OrderRepository orderRepository,
+			ProductRepository productRepository) {
+		this.orderRepository = orderRepository;
+		this.productRepository = productRepository;
 	}
 
 	@Override
 	public String placeOrder(Order order) {
-		return orderService.createOrder(order);
+		return orderRepository.createOrder(order);
 	}
 
 	@Override
 	public void removeOrder(String orderId) {
-		orderService.removeOrder(orderId);
+		orderRepository.removeOrder(orderId);
 	}
 
 	@Override
-	public Order updateOrder(Order order) {
-		return orderService.updateOrder(order);
+	public Order updateOrder(String orderId, Order order) {
+		return orderRepository.updateOrder(orderId, order);
 	}
 
+	@Override
+	public List<Product> getAllProducts() {
+		return productRepository.getAllProducts();
+	}
+
+	@Override
+	public Product getProductDetail(String id) {
+		return productRepository.getProductDetail(id);
+	}
 }

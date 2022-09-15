@@ -34,4 +34,9 @@ public class DomainProductService implements ProductService {
 		return productRepo.getAllProducts();
 	}
 
+	@Override
+	public Product getProductDetail(String id) {
+		return productRepo.getProductDetail(id);
+	}
+
 }

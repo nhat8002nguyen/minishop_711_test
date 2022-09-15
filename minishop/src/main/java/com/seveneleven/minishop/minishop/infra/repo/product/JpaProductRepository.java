@@ -62,4 +62,14 @@ public class JpaProductRepository implements ProductRepository {
 		iterable.forEach(productDto -> productList.add(mapper.productDtoToProduct(productDto)));
 		return productList;
 	}
+
+	@Override
+	public Product getProductDetail(String id) {
+		Optional<ProductDto> optional = jpaDBProductRepo.findById(id);
+		if (optional.isEmpty()) {
+			return null;
+		}
+		Product product = mapper.productDtoToProduct(optional.get());
+		return product;
+	}
 }

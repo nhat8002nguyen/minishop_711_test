@@ -12,4 +12,6 @@ public interface ProductRepository {
 	Product updateProduct(String id, Product product);
 
 	List<Product> getAllProducts();
+
+	Product getProductDetail(String id);
 }

@@ -5,14 +5,12 @@ import java.util.List;
 import com.seveneleven.minishop.minishop.domain.domainObjects.order.Order;
 import com.seveneleven.minishop.minishop.domain.domainObjects.product.Product;
 
-public interface CustomerService {
-	String placeOrder(Order order);
+public interface AdminService {
+	String addProduct(Product product);
 
-	void removeOrder(String orderId);
+	void removeProduct(String id);
 
-	Order updateOrder(String orderId, Order order);
+	Product updateProduct(String id, Product product);
 
-	List<Product> getAllProducts();
-
-	Product getProductDetail(String id);
+	List<Order> getAllOrders();
 }
