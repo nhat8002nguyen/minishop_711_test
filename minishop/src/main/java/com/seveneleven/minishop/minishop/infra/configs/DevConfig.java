@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import com.seveneleven.minishop.minishop.domain.domainObjects.product.Product;
 import com.seveneleven.minishop.minishop.infra.dto.ProductDto;
 import com.seveneleven.minishop.minishop.infra.dto.mappers.ProductMapper;
-import com.seveneleven.minishop.minishop.infra.repo.JpaDBProductRepository;
+import com.seveneleven.minishop.minishop.infra.repo.product.JpaDBProductRepository;
 
 @Configuration
 public class DevConfig {

@@ -1,5 +1,6 @@
 package com.seveneleven.minishop.minishop.infra.dto.mappers;
 
+import java.util.Date;
 import java.util.UUID;
 
 import org.mapstruct.Mapper;
@@ -19,6 +20,10 @@ public interface OrderMapper {
 	OrderDto toOrderDto(Order order);
 
 	Order dtoToOrder(OrderDto order);
+
+	@Mapping(source = "firstCreatedAt", target = "placedAt")
+	@Mapping(source = "sourceId", target = "id")
+	OrderDto updateOrderDto(String sourceId, Date firstCreatedAt, Order order);
 
 	@Mapping(target = "id", expression = "java( UUID.randomUUID().toString() )")
 	@Mapping(target = "product.id", ignore = true)

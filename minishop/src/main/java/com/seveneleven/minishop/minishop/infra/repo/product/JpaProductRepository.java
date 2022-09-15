@@ -1,4 +1,4 @@
-package com.seveneleven.minishop.minishop.infra.repo;
+package com.seveneleven.minishop.minishop.infra.repo.product;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +47,7 @@ public class JpaProductRepository implements ProductRepository {
 				oldProductDto.getCreatedAt(),
 				product);
 
-		jpaDBProductRepo.save(updatedProduct);
+		updatedProduct = jpaDBProductRepo.save(updatedProduct);
 
 		Product newProduct = mapper.productDtoToProduct(updatedProduct);
 

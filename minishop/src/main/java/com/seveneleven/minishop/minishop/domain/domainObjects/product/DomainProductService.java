@@ -25,8 +25,8 @@ public class DomainProductService implements ProductService {
 
 	@Override
 	public Product updateProduct(String id, Product product) {
-		productRepo.updateProduct(id, product);
-		return product;
+		Product updatedProduct = productRepo.updateProduct(id, product);
+		return updatedProduct;
 	}
 
 	@Override
