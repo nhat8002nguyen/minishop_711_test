@@ -1,0 +1,4 @@
+Làm 1 trang web có các yêu cầu sau:
+1) Màn hình cho admin Quản lí sản phẩm: danh sách, chi tiết, thêm, sửa và xóa sản phẩm
+2) Màn hình liệt kê sản phẩm để user tạo đơn hàng
+3) Màn hình cho admin xem đơn hàng
