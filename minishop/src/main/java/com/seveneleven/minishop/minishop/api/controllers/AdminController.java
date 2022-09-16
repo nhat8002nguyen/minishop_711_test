@@ -1,5 +1,7 @@
 package com.seveneleven.minishop.minishop.api.controllers;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,7 @@ import com.seveneleven.minishop.minishop.domain.services.AdminService;
 @CrossOrigin(origins = "http://localhost:8080")
 public class AdminController {
 	private final AdminService service;
+	private final Log LOGGER = LogFactory.getLog(AdminController.class);
 
 	@Autowired
 	public AdminController(AdminService service) {

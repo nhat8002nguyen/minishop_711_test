@@ -1,7 +1,7 @@
 package com.minishop.authserver.authserver.Entities;
 
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,9 +32,14 @@ public class Customer implements UserDetails {
 
 	private final String password;
 
+	private final String role;
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+		if (role == "ROLE_USER" || role == "ROLE_ADMIN") {
+			return Arrays.asList(new SimpleGrantedAuthority(role));
+		}
+		return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
 	}
 
 	@Override

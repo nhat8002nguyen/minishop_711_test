@@ -3,6 +3,8 @@ package com.seveneleven.minishop.minishop.domain.domainObjects.order;
 import java.util.Date;
 import java.util.List;
 
+import com.seveneleven.minishop.minishop.domain.domainObjects.customer.Customer;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,6 +19,8 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 public class Order {
 	private String id;
+
+	private Customer customer;
 
 	private final List<OrderItem> orderItems;
 

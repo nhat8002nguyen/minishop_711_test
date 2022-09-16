@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.minishop.authserver.authserver.Entities.Admin;
 import com.minishop.authserver.authserver.Entities.Customer;
 import com.minishop.authserver.authserver.repo.CustomerRepository;
 
@@ -18,13 +17,15 @@ public class DevConfig {
 			CustomerRepository customerRepo) {
 		return args -> {
 			Customer customer = Customer.builder()
-					.username("Customer")
-					.password(encoder.encode("password"))
+					.username("customer")
+					.password(encoder.encode("customer"))
+					.role("ROLE_USER")
 					.build();
 
-			Customer admin = Admin.builder()
+			Customer admin = Customer.builder()
 					.username("admin")
-					.password(encoder.encode("password"))
+					.password(encoder.encode("admin"))
+					.role("ROLE_ADMIN")
 					.build();
 
 			customerRepo.save(customer);
