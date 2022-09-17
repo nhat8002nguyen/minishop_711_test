@@ -3,14 +3,15 @@ package com.seveneleven.minishop.minishop.infra.configs;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.seveneleven.minishop.minishop.domain.domainObjects.admin.DomainAdminService;
-import com.seveneleven.minishop.minishop.domain.domainObjects.customer.DomainCustomerService;
-import com.seveneleven.minishop.minishop.domain.domainObjects.product.DomainProductService;
-import com.seveneleven.minishop.minishop.domain.repositories.OrderRepository;
-import com.seveneleven.minishop.minishop.domain.repositories.ProductRepository;
-import com.seveneleven.minishop.minishop.domain.services.AdminService;
-import com.seveneleven.minishop.minishop.domain.services.CustomerService;
-import com.seveneleven.minishop.minishop.domain.services.ProductService;
+import com.seveneleven.minishop.minishop.repositories.CustomerRepository;
+import com.seveneleven.minishop.minishop.repositories.OrderRepository;
+import com.seveneleven.minishop.minishop.repositories.ProductRepository;
+import com.seveneleven.minishop.minishop.services.admin.AdminService;
+import com.seveneleven.minishop.minishop.services.admin.DomainAdminService;
+import com.seveneleven.minishop.minishop.services.customer.CustomerService;
+import com.seveneleven.minishop.minishop.services.customer.DomainCustomerService;
+import com.seveneleven.minishop.minishop.services.product.DomainProductService;
+import com.seveneleven.minishop.minishop.services.product.ProductService;
 
 @Configuration
 public class BeanConfiguration {
@@ -22,8 +23,9 @@ public class BeanConfiguration {
 	@Bean
 	CustomerService customerService(
 			OrderRepository orderRepository,
-			ProductRepository productRepository) {
-		return new DomainCustomerService(orderRepository, productRepository);
+			ProductRepository productRepository,
+			CustomerRepository customerRepository) {
+		return new DomainCustomerService(orderRepository, productRepository, customerRepository);
 	}
 
 	@Bean

@@ -4,18 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.seveneleven.minishop.minishop.domain.domainObjects.order.Order;
-import com.seveneleven.minishop.minishop.domain.repositories.OrderRepository;
+import com.seveneleven.minishop.minishop.domain.order.Order;
 import com.seveneleven.minishop.minishop.infra.dto.OrderDto;
-import com.seveneleven.minishop.minishop.infra.dto.mappers.OrderMapper;
+import com.seveneleven.minishop.minishop.infra.mappers.OrderMapper;
+import com.seveneleven.minishop.minishop.repositories.OrderRepository;
 
 @Component
 public class JpaOrderRepository implements OrderRepository {
 	private final JpaDBOrderRepository orderRepo;
 	private final OrderMapper mapper = OrderMapper.INSTANCE;
+	private final Log LOGGER = LogFactory.getLog(JpaDBOrderRepository.class);
 
 	@Autowired
 	public JpaOrderRepository(JpaDBOrderRepository orderRepository) {
@@ -25,8 +28,9 @@ public class JpaOrderRepository implements OrderRepository {
 	@Override
 	public String createOrder(Order order) {
 		OrderDto orderDto = mapper.toOrderDto(order);
-		orderRepo.save(orderDto);
-		return orderDto.getId();
+		OrderDto savedOrder = orderRepo.save(orderDto);
+		LOGGER.info("Order was saved: " + savedOrder);
+		return savedOrder.getId();
 	}
 
 	@Override
@@ -61,11 +65,5 @@ public class JpaOrderRepository implements OrderRepository {
 
 		iterable.forEach(orderDto -> productList.add(mapper.dtoToOrder(orderDto)));
 		return productList;
-	}
-
-	@Override
-	public List<Order> getOrdersByCustomer(String userId) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

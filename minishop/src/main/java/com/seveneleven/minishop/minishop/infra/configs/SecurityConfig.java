@@ -27,6 +27,8 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 				.authorizeRequests((authorizeRequests) -> authorizeRequests
+						.antMatchers("/h2-console").permitAll()
+
 						.antMatchers("/api/product").hasAuthority("SCOPE_readProducts")
 
 						.antMatchers("/api/admin-service/**")

@@ -54,7 +54,7 @@ public class CustomerDto implements UserDetails {
 	@CreationTimestamp
 	private final Date registerDate;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+	@OneToMany(cascade = CascadeType.ALL)
 	private final List<OrderDto> orders = new ArrayList<>();
 
 	@Override

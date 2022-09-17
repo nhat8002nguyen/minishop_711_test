@@ -1,12 +1,11 @@
-package com.seveneleven.minishop.minishop.domain.domainObjects.admin;
+package com.seveneleven.minishop.minishop.services.admin;
 
 import java.util.List;
 
-import com.seveneleven.minishop.minishop.domain.domainObjects.order.Order;
-import com.seveneleven.minishop.minishop.domain.domainObjects.product.Product;
-import com.seveneleven.minishop.minishop.domain.repositories.OrderRepository;
-import com.seveneleven.minishop.minishop.domain.repositories.ProductRepository;
-import com.seveneleven.minishop.minishop.domain.services.AdminService;
+import com.seveneleven.minishop.minishop.domain.order.Order;
+import com.seveneleven.minishop.minishop.domain.order.Product;
+import com.seveneleven.minishop.minishop.repositories.OrderRepository;
+import com.seveneleven.minishop.minishop.repositories.ProductRepository;
 
 public class DomainAdminService implements AdminService {
 	private final ProductRepository productRepo;

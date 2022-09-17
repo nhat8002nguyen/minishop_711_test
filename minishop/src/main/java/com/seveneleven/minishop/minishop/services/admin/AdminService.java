@@ -1,9 +1,9 @@
-package com.seveneleven.minishop.minishop.domain.services;
+package com.seveneleven.minishop.minishop.services.admin;
 
 import java.util.List;
 
-import com.seveneleven.minishop.minishop.domain.domainObjects.order.Order;
-import com.seveneleven.minishop.minishop.domain.domainObjects.product.Product;
+import com.seveneleven.minishop.minishop.domain.order.Order;
+import com.seveneleven.minishop.minishop.domain.order.Product;
 
 public interface AdminService {
 	String addProduct(Product product);

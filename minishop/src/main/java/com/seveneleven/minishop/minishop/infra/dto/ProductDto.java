@@ -1,19 +1,20 @@
 package com.seveneleven.minishop.minishop.infra.dto;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -22,11 +23,13 @@ import lombok.RequiredArgsConstructor;
 @Data
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 @RequiredArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ProductDto {
 	@Id
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	private String id;
+	// @GeneratedValue(generator = "uuid")
+	// @GenericGenerator(name = "uuid", strategy = "uuid2")
+	private final String id;
 
 	@NotNull
 	@NotBlank
@@ -41,7 +44,7 @@ public class ProductDto {
 
 	@NotNull
 	@Size(min = 1, max = 1000000000, message = "Price should be enter truely")
-	private final String price;
+	private final BigDecimal price;
 
 	@NotNull
 	private final Boolean instock;

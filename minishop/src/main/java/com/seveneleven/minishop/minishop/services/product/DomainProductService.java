@@ -1,9 +1,9 @@
-package com.seveneleven.minishop.minishop.domain.domainObjects.product;
+package com.seveneleven.minishop.minishop.services.product;
 
 import java.util.List;
 
-import com.seveneleven.minishop.minishop.domain.repositories.ProductRepository;
-import com.seveneleven.minishop.minishop.domain.services.ProductService;
+import com.seveneleven.minishop.minishop.domain.order.Product;
+import com.seveneleven.minishop.minishop.repositories.ProductRepository;
 
 public class DomainProductService implements ProductService {
 	private final ProductRepository productRepo;

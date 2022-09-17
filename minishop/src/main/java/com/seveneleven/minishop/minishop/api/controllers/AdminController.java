@@ -1,5 +1,8 @@
 package com.seveneleven.minishop.minishop.api.controllers;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,8 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.seveneleven.minishop.minishop.domain.domainObjects.product.Product;
-import com.seveneleven.minishop.minishop.domain.services.AdminService;
+import com.seveneleven.minishop.minishop.domain.order.Order;
+import com.seveneleven.minishop.minishop.domain.order.Product;
+import com.seveneleven.minishop.minishop.services.admin.AdminService;
 
 @RestController
 @RequestMapping(path = "/api/admin-service", produces = "application/json")
@@ -53,5 +58,15 @@ public class AdminController {
 	ResponseEntity<?> removeProduct(@PathVariable String id) {
 		service.removeProduct(id);
 		return ResponseEntity.noContent().build();
+	}
+
+	@GetMapping(value = "/orders")
+	ResponseEntity<?> getAllOrders() {
+		List<Order> orders = service.getAllOrders();
+		if (orders == null) {
+			return ResponseEntity.badRequest().build();
+		}
+
+		return ResponseEntity.ok(Map.of("orders", orders));
 	}
 }

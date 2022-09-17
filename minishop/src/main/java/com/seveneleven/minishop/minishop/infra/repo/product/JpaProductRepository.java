@@ -7,10 +7,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.seveneleven.minishop.minishop.domain.domainObjects.product.Product;
-import com.seveneleven.minishop.minishop.domain.repositories.ProductRepository;
+import com.seveneleven.minishop.minishop.domain.order.Product;
 import com.seveneleven.minishop.minishop.infra.dto.ProductDto;
-import com.seveneleven.minishop.minishop.infra.dto.mappers.ProductMapper;
+import com.seveneleven.minishop.minishop.infra.mappers.ProductMapper;
+import com.seveneleven.minishop.minishop.repositories.ProductRepository;
 
 @Component
 public class JpaProductRepository implements ProductRepository {

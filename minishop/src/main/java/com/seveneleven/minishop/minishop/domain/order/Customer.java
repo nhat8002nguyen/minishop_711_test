@@ -1,10 +1,6 @@
-package com.seveneleven.minishop.minishop.domain.domainObjects.customer;
+package com.seveneleven.minishop.minishop.domain.order;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
-import com.seveneleven.minishop.minishop.domain.domainObjects.order.Order;
 
 import lombok.AccessLevel;
 import lombok.Data;
@@ -24,6 +20,4 @@ public class Customer {
 	private final String password;
 
 	private final Date registerDate;
-
-	private final List<Order> orders = new ArrayList<>();
 }

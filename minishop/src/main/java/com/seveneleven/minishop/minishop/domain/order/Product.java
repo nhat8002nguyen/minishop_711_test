@@ -1,4 +1,4 @@
-package com.seveneleven.minishop.minishop.domain.domainObjects.product;
+package com.seveneleven.minishop.minishop.domain.order;
 
 import java.math.BigDecimal;
 import java.util.Date;

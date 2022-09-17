@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.seveneleven.minishop.minishop.domain.domainObjects.product.Product;
-import com.seveneleven.minishop.minishop.domain.services.ProductService;
+import com.seveneleven.minishop.minishop.domain.order.Product;
+import com.seveneleven.minishop.minishop.services.product.ProductService;
 
 @RestController
 @RequestMapping(path = "/api", produces = "application/json")

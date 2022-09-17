@@ -1,10 +1,10 @@
-package com.seveneleven.minishop.minishop.domain.services;
+package com.seveneleven.minishop.minishop.repositories;
 
 import java.util.List;
 
-import com.seveneleven.minishop.minishop.domain.domainObjects.product.Product;
+import com.seveneleven.minishop.minishop.domain.order.Product;
 
-public interface ProductService {
+public interface ProductRepository {
 	String addProduct(Product product);
 
 	void removeProduct(String id);
