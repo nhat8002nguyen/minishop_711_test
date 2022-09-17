@@ -1,0 +1,369 @@
+{
+	"info": {
+		"_postman_id": "9dce6a0c-4ded-475b-8106-7d0afe7c14dd",
+		"name": "7_eleven_test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15695739"
+	},
+	"item": [
+		{
+			"name": "permit all",
+			"item": [
+				{
+					"name": "Get product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/product",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"product"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "create product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"product-abc-1245\",\n    \"title\": \"Product 10\",\n    \"description\": \"This is description of product 10\",\n    \"imageUrl\": \"This is image of Product 10\",\n    \"price\": \"100000\",\n    \"instock\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/admin-service/product",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin-service",
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"product 10\",\n    \"description\": \"This is product 1\",\n    \"imageUrl\": \"This is image imageUrl\",\n    \"price\": 60000,\n    \"instock\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/admin-service/product/product-abc-125",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin-service",
+								"product",
+								"product-abc-125"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete product",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJraWQiOiI2MjNiMzg0NC00YWZhLTRjYjMtYjE1Zi04MjExN2ZhMzczMTkiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjdXN0b21lciIsImF1ZCI6Im1pbmlzaG9wLWNsaWVudCIsIm5iZiI6MTY2MzM0MjkwOSwic2NvcGUiOlsicmVhZFByb2R1Y3RzIl0sInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6OTAwMCIsImV4cCI6MTY2MzM0MzIwOSwiaWF0IjoxNjYzMzQyOTA5fQ.tBHHxNjnHfHgQy9giG4V-pIhbZv8yP1eiAmTN4SilWu_N8LagYeXq-HIV8Pah6T5dIx783Yg0vB2sv1p7oAl_9wuCgIvrqWvXGgfuTaH6ktt0CK6AywXE7q2yyGVPxhRPRs9E_Tt7ugJ-Irca-kd8MdJAO9j0dOMWjot_F-V0TMZHL5nrFLOKOh-hTEh6ymZhQC3A_XuuQZgfR-Zn6u7LLGGNj-kLZVvncRJmEEzuc4KVHOzM4eARlcMlFvzHmwki95puCF-LzTihCS0ArcSBdLX3IUKc2seNIJYRXGEXrInf0c48knkfmWQUwEfIp-FjtAtU97E9kwWsNnP19YRXQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/admin-service/product/product-abc-1245",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin-service",
+								"product",
+								"product-abc-1245"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/admin-service/orders",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin-service",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "customer",
+			"item": [
+				{
+					"name": "create order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"items\": [\n        {\n            \"productId\": \"product-abc-123\",\n            \"quantity\": 2\n        },\n        {\n            \"productId\": \"product-abc-124\",\n            \"quantity\": 3\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/customer-service/customer/order",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"customer-service",
+								"customer",
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/customer-service/customer/order",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"customer-service",
+								"customer",
+								"order"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "authen",
+			"item": [
+				{
+					"name": "openid",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/.well-known/openid-configuration",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								".well-known",
+								"openid-configuration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/h2-console",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/h2-console",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"h2-console"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "scope",
+				"value": "readProducts writeProducts writeOrders readOrders",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "token",
+				"type": "string"
+			},
+			{
+				"key": "challengeAlgorithm",
+				"value": "S256",
+				"type": "string"
+			},
+			{
+				"key": "redirect_uri",
+				"value": "http://127.0.0.1:8080/login/oauth2/code/minishop-client-oidc",
+				"type": "string"
+			},
+			{
+				"key": "grant_type",
+				"value": "authorization_code",
+				"type": "string"
+			},
+			{
+				"key": "clientSecret",
+				"value": "secret",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "minishop-client",
+				"type": "string"
+			},
+			{
+				"key": "authUrl",
+				"value": "http://localhost:9000/oauth2/authorize",
+				"type": "string"
+			},
+			{
+				"key": "client_authentication",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "localhost:9000/oauth2/token",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
