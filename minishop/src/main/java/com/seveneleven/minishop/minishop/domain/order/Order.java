@@ -18,6 +18,8 @@ import lombok.RequiredArgsConstructor;
 public class Order {
 	private String id;
 
+	private final Customer customer;
+
 	private final List<OrderItem> orderItems;
 
 	private final Date placedAt;

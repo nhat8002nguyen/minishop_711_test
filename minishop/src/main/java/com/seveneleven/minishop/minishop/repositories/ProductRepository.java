@@ -2,12 +2,15 @@ package com.seveneleven.minishop.minishop.repositories;
 
 import java.util.List;
 
+import com.seveneleven.minishop.minishop.domain.exceptions.ExistOrderItemIncludesProductException;
 import com.seveneleven.minishop.minishop.domain.order.Product;
 
 public interface ProductRepository {
+	Product findProductById(String id);
+
 	String addProduct(Product product);
 
-	void removeProduct(String id);
+	void removeProduct(String id) throws ExistOrderItemIncludesProductException;
 
 	Product updateProduct(String id, Product product);
 

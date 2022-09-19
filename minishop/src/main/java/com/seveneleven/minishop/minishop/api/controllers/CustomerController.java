@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +23,7 @@ import com.seveneleven.minishop.minishop.domain.order.Order;
 import com.seveneleven.minishop.minishop.domain.order.OrderItem;
 import com.seveneleven.minishop.minishop.domain.order.Product;
 import com.seveneleven.minishop.minishop.services.customer.CustomerService;
+import com.seveneleven.minishop.minishop.services.order.OrderService;
 import com.seveneleven.minishop.minishop.services.product.ProductService;
 
 @RestController
@@ -33,17 +32,21 @@ import com.seveneleven.minishop.minishop.services.product.ProductService;
 public class CustomerController {
 	private final CustomerService customerService;
 	private final ProductService productService;
-	private final Log LOGGER = LogFactory.getLog(CustomerController.class);
+	private final OrderService orderService;
 
 	@Autowired
-	public CustomerController(CustomerService service, ProductService productService) {
+	public CustomerController(
+			CustomerService service,
+			ProductService productService,
+			OrderService orderService) {
 		this.customerService = service;
 		this.productService = productService;
+		this.orderService = orderService;
 	}
 
 	@GetMapping(path = "{customerName}/order")
 	public ResponseEntity<?> getOrders(@PathVariable String customerName) {
-		List<Order> orders = customerService.getOrders(customerName);
+		List<Order> orders = orderService.getOrdersOfCustomer(customerName);
 		if (orders == null) {
 			return ResponseEntity.badRequest().body(Map.of("message", "Cannot get order list"));
 		}
@@ -59,26 +62,7 @@ public class CustomerController {
 				return ResponseEntity.badRequest().body(Map.of("message", "Customer resource not found"));
 			}
 
-			List<OrderItem> orderItems = new ArrayList<>();
-
-			orderRequest.getItems().forEach(item -> {
-				try {
-					OrderItem orderItem = createOrderItem(item);
-					orderItems.add(orderItem);
-				} catch (Exception e) {
-					e.printStackTrace();
-					orderItems.clear();
-				}
-			});
-
-			if (orderItems.isEmpty())
-				throw new Exception("Some order items can not be created");
-
-			Order order = Order.builder()
-					.orderItems(orderItems)
-					.build();
-
-			String orderId = customerService.placeOrder(customerName, order);
+			String orderId = placeOrderByCustomer(customer, orderRequest);
 
 			if (orderId == null) {
 				return ResponseEntity.badRequest().body(Map.of("message", "Create Order fail"));
@@ -88,6 +72,27 @@ public class CustomerController {
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
 		}
+	}
+
+	private String placeOrderByCustomer(Customer customer, OrderRequest orderRequest) throws Exception {
+		List<OrderItem> orderItems = new ArrayList<>();
+
+		List<ItemRequest> itemRequests = orderRequest.getItems();
+		for (int i = 0; i < itemRequests.size(); i++) {
+			OrderItem orderItem = createOrderItem(itemRequests.get(i));
+			orderItems.add(orderItem);
+		}
+
+		if (orderItems.isEmpty())
+			throw new Exception("Some order items can not be created");
+
+		Order order = Order.builder()
+				.customer(customer)
+				.orderItems(orderItems)
+				.build();
+
+		String orderId = orderService.placeOrder(customer.getUsername(), order);
+		return orderId;
 	}
 
 	private OrderItem createOrderItem(ItemRequest item) throws Exception {

@@ -3,8 +3,6 @@ package com.seveneleven.minishop.minishop.api.controllers;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,25 +16,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.seveneleven.minishop.minishop.domain.exceptions.ExistOrderItemIncludesProductException;
 import com.seveneleven.minishop.minishop.domain.order.Order;
 import com.seveneleven.minishop.minishop.domain.order.Product;
-import com.seveneleven.minishop.minishop.services.admin.AdminService;
+import com.seveneleven.minishop.minishop.services.order.OrderService;
+import com.seveneleven.minishop.minishop.services.product.ProductService;
 
 @RestController
 @RequestMapping(path = "/api/admin-service", produces = "application/json")
 @CrossOrigin(origins = "http://localhost:8080")
 public class AdminController {
-	private final AdminService service;
-	private final Log LOGGER = LogFactory.getLog(AdminController.class);
+	private final ProductService productService;
+	private final OrderService orderService;
 
 	@Autowired
-	public AdminController(AdminService service) {
-		this.service = service;
+	public AdminController(
+			ProductService productService,
+			OrderService orderService) {
+		this.productService = productService;
+		this.orderService = orderService;
 	}
 
 	@PostMapping(path = "/product")
 	ResponseEntity<?> addProduct(@RequestBody Product product) {
-		String id = service.addProduct(product);
+		String id = productService.addProduct(product);
 		if (id == null) {
 			return ResponseEntity.badRequest().build();
 		}
@@ -46,7 +49,7 @@ public class AdminController {
 
 	@PutMapping(value = "/product/{id}")
 	public ResponseEntity<Product> updateProduct(@PathVariable String id, @RequestBody Product product) {
-		Product result = service.updateProduct(id, product);
+		Product result = productService.updateProduct(id, product);
 		if (result == null) {
 			return ResponseEntity.badRequest().build();
 		}
@@ -56,13 +59,17 @@ public class AdminController {
 
 	@DeleteMapping(path = "/product/{id}")
 	ResponseEntity<?> removeProduct(@PathVariable String id) {
-		service.removeProduct(id);
-		return ResponseEntity.noContent().build();
+		try {
+			productService.removeProduct(id);
+			return ResponseEntity.noContent().build();
+		} catch (ExistOrderItemIncludesProductException e) {
+			return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
+		}
 	}
 
 	@GetMapping(value = "/orders")
 	ResponseEntity<?> getAllOrders() {
-		List<Order> orders = service.getAllOrders();
+		List<Order> orders = orderService.getAllOrders();
 		if (orders == null) {
 			return ResponseEntity.badRequest().build();
 		}

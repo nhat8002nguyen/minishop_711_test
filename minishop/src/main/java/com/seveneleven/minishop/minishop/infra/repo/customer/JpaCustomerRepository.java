@@ -3,8 +3,6 @@ package com.seveneleven.minishop.minishop.infra.repo.customer;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +19,6 @@ public class JpaCustomerRepository implements CustomerRepository {
 	private final JpaDBCustomerRepository customerRepo;
 	private final CustomerMapper mapper = CustomerMapper.INSTANCE;
 	private final OrderMapper orderMapper = OrderMapper.INSTANCE;
-	private final Log LOGGER = LogFactory.getLog(JpaCustomerRepository.class);
 
 	@Autowired
 	public JpaCustomerRepository(JpaDBCustomerRepository customerRepository) {

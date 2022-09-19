@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
+import com.seveneleven.minishop.minishop.domain.exceptions.ExistOrderItemIncludesProductException;
 import com.seveneleven.minishop.minishop.domain.order.Product;
 import com.seveneleven.minishop.minishop.infra.dto.ProductDto;
 import com.seveneleven.minishop.minishop.infra.mappers.ProductMapper;
@@ -30,8 +32,12 @@ public class JpaProductRepository implements ProductRepository {
 	}
 
 	@Override
-	public void removeProduct(String id) {
-		jpaDBProductRepo.deleteById(id);
+	public void removeProduct(String id) throws ExistOrderItemIncludesProductException {
+		try {
+			jpaDBProductRepo.deleteById(id);
+		} catch (DataIntegrityViolationException exception) {
+			throw new ExistOrderItemIncludesProductException();
+		}
 	}
 
 	@Override
@@ -71,5 +77,11 @@ public class JpaProductRepository implements ProductRepository {
 		}
 		Product product = mapper.productDtoToProduct(optional.get());
 		return product;
+	}
+
+	@Override
+	public Product findProductById(String id) {
+		Optional<ProductDto> optional = jpaDBProductRepo.findById(id);
+		return optional.isEmpty() ? null : mapper.productDtoToProduct(optional.get());
 	}
 }

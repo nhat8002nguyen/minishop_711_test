@@ -1,0 +1,4 @@
+./auth_server/authserver/target/**
+./minishop/target/**
+./minishop_client/clientapp/target/**
+

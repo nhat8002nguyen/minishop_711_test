@@ -2,6 +2,7 @@ package com.seveneleven.minishop.minishop.services.product;
 
 import java.util.List;
 
+import com.seveneleven.minishop.minishop.domain.exceptions.ExistOrderItemIncludesProductException;
 import com.seveneleven.minishop.minishop.domain.order.Product;
 import com.seveneleven.minishop.minishop.repositories.ProductRepository;
 
@@ -19,7 +20,11 @@ public class DomainProductService implements ProductService {
 	}
 
 	@Override
-	public void removeProduct(String id) {
+	public void removeProduct(String id) throws ExistOrderItemIncludesProductException {
+		Product product = productRepo.findProductById(id);
+		if (product == null) {
+			return;
+		}
 		productRepo.removeProduct(id);
 	}
 

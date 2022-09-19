@@ -125,7 +125,7 @@
 							}
 						],
 						"url": {
-							"raw": "localhost:8080/api/admin-service/product/product-abc-1245",
+							"raw": "localhost:8080/api/admin-service/product/product-abc-124",
 							"host": [
 								"localhost"
 							],
@@ -134,7 +134,7 @@
 								"api",
 								"admin-service",
 								"product",
-								"product-abc-1245"
+								"product-abc-124"
 							]
 						}
 					},
@@ -192,7 +192,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"items\": [\n        {\n            \"productId\": \"product-abc-123\",\n            \"quantity\": 2\n        },\n        {\n            \"productId\": \"product-abc-124\",\n            \"quantity\": 3\n        }\n    ]\n}",
+							"raw": "{\n    \"items\": [\n        {\n            \"productId\": \"product-abc-123\",\n            \"quantity\": 2\n        },\n        {\n            \"productId\": \"product-abc-125\",\n            \"quantity\": 3\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"

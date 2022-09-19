@@ -60,10 +60,10 @@ public class JpaOrderRepository implements OrderRepository {
 
 	@Override
 	public List<Order> getAllOrders() {
-		List<Order> productList = new ArrayList<>();
+		List<Order> orders = new ArrayList<>();
 		Iterable<OrderDto> iterable = orderRepo.findAll();
 
-		iterable.forEach(orderDto -> productList.add(mapper.dtoToOrder(orderDto)));
-		return productList;
+		iterable.forEach(orderDto -> orders.add(mapper.dtoToOrder(orderDto)));
+		return orders;
 	}
 }
