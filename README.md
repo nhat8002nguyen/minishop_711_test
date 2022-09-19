@@ -1,4 +1,5 @@
 # minishop_711_test
+### Github: https://github.com/nhat8002nguyen/minishop_711_test
 
 ## How to run application
 1. In terminal, navigate to folder ./auth_server/authserver/

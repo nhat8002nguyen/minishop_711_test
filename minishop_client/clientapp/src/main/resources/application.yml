@@ -1,0 +1,15 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          minishop-client-oidc:
+            provider: minishop
+            client-id: minishop-client
+            client-secret: secret
+            authorization-grant-type: authorization_code
+            redirect-uri: "http://127.0.0.1:8080/login/oauth2/code/{registrationId}"
+            scope: readProducts,writeProducts,readOrders,writeOrders,openid
+        provider:
+          minishop:
+            issuer-uri: http://localhost:9000
