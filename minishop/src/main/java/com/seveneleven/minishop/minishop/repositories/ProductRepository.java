@@ -8,7 +8,7 @@ import com.seveneleven.minishop.minishop.domain.order.Product;
 public interface ProductRepository {
 	Product findProductById(String id);
 
-	String addProduct(Product product);
+	Long addProduct(Product product);
 
 	void removeProduct(String id) throws ExistOrderItemIncludesProductException;
 

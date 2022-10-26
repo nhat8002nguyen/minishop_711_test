@@ -1,4 +1,4 @@
-package com.seveneleven.minishop.minishop.services.order;
+package com.seveneleven.minishop.minishop.domain.services.order;
 
 import java.util.List;
 
@@ -8,11 +8,11 @@ public interface OrderService {
 
 	List<Order> getAllOrders();
 
-	String placeOrder(String username, Order order);
+	Order placeOrder(String username, Order order);
 
 	void removeOrder(String orderId);
 
 	Order updateOrder(String orderId, Order order);
 
-	List<Order> getOrdersOfCustomer(String name);
+	List<Order> getOrdersOfUser(String name);
 }

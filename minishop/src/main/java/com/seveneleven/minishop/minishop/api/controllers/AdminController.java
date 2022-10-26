@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.seveneleven.minishop.minishop.domain.exceptions.ExistOrderItemIncludesProductException;
 import com.seveneleven.minishop.minishop.domain.order.Order;
 import com.seveneleven.minishop.minishop.domain.order.Product;
-import com.seveneleven.minishop.minishop.services.order.OrderService;
-import com.seveneleven.minishop.minishop.services.product.ProductService;
+import com.seveneleven.minishop.minishop.domain.services.order.OrderService;
+import com.seveneleven.minishop.minishop.domain.services.product.ProductService;
 
 @RestController
 @RequestMapping(path = "/api/admin-service", produces = "application/json")
@@ -39,11 +39,7 @@ public class AdminController {
 
 	@PostMapping(path = "/product")
 	ResponseEntity<?> addProduct(@RequestBody Product product) {
-		String id = productService.addProduct(product);
-		if (id == null) {
-			return ResponseEntity.badRequest().build();
-		}
-
+		long id = productService.addProduct(product);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 

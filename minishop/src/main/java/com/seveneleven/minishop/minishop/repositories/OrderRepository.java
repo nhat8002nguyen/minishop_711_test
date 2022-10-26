@@ -7,7 +7,7 @@ import com.seveneleven.minishop.minishop.domain.order.Order;
 public interface OrderRepository {
 	List<Order> getAllOrders();
 
-	String createOrder(Order order);
+	Order createOrder(Order order);
 
 	void removeOrder(String id);
 

@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 @RequiredArgsConstructor
-public class Customer {
+public class User {
 	private final String id;
 
 	private final String username;

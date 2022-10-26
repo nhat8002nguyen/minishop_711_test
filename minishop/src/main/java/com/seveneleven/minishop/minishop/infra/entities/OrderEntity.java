@@ -1,17 +1,16 @@
-package com.seveneleven.minishop.minishop.infra.dto;
+package com.seveneleven.minishop.minishop.infra.entities;
 
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -20,24 +19,23 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
-@Entity
+@Entity(name = "orders")
 @Data
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
-public class OrderDto {
+public class OrderEntity {
 	@Id
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	private String id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
 
 	@ManyToOne
-	private final CustomerDto customer;
+	private final UserEntity user;
 
 	@CreationTimestamp
 	private final Date placedAt;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	private final List<OrderItemDto> orderItems;
+	@OneToMany(mappedBy = "order")
+	private final List<OrderItemEntity> orderItems;
 }

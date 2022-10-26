@@ -5,6 +5,12 @@ spring:
         jwt:
           issuer-uri: http://localhost:9000
           jwk-set-uri: http://localhost:9000/oauth2/jwks
-  h2:
-    console:
-      enabled: true
+  spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:mysql://localhost:3306/minishop_DB
+    username: root
+    password: 200899_Mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver

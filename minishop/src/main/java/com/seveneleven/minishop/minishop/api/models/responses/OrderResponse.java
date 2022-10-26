@@ -1,7 +1,7 @@
 package com.seveneleven.minishop.minishop.api.models.responses;
 
-import com.seveneleven.minishop.minishop.domain.order.Customer;
 import com.seveneleven.minishop.minishop.domain.order.Order;
+import com.seveneleven.minishop.minishop.domain.order.User;
 
 import lombok.AccessLevel;
 import lombok.Data;
@@ -13,5 +13,5 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class OrderResponse {
 	private final Order order;
-	private final Customer customer;
+	private final User customer;
 }

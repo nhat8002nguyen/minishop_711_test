@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.seveneleven.minishop.minishop.domain.order.Order;
-import com.seveneleven.minishop.minishop.infra.dto.OrderDto;
+import com.seveneleven.minishop.minishop.infra.entities.OrderEntity;
 import com.seveneleven.minishop.minishop.infra.mappers.OrderMapper;
 import com.seveneleven.minishop.minishop.repositories.OrderRepository;
 
@@ -26,11 +26,11 @@ public class JpaOrderRepository implements OrderRepository {
 	}
 
 	@Override
-	public String createOrder(Order order) {
-		OrderDto orderDto = mapper.toOrderDto(order);
-		OrderDto savedOrder = orderRepo.save(orderDto);
+	public Order createOrder(Order order) {
+		OrderEntity orderDto = mapper.orderPojoToEntity(order);
+		OrderEntity savedOrder = orderRepo.save(orderDto);
 		LOGGER.info("Order was saved: " + savedOrder);
-		return savedOrder.getId();
+		return mapper.orderEntityToPojo(savedOrder);
 	}
 
 	@Override
@@ -40,20 +40,20 @@ public class JpaOrderRepository implements OrderRepository {
 
 	@Override
 	public Order updateOrder(String id, Order order) {
-		Optional<OrderDto> optional = orderRepo.findById(id);
+		Optional<OrderEntity> optional = orderRepo.findById(id);
 		if (optional.isEmpty()) {
 			return null;
 		}
-		OrderDto oldOrderDto = optional.get();
+		OrderEntity oldOrderEntity = optional.get();
 
-		OrderDto updatedOrder = mapper.updateOrderDto(
-				oldOrderDto.getId(),
-				oldOrderDto.getPlacedAt(),
+		OrderEntity updatedOrder = mapper.updateOrderEntity(
+				oldOrderEntity.getId(),
+				oldOrderEntity.getPlacedAt(),
 				order);
 
 		updatedOrder = orderRepo.save(updatedOrder);
 
-		Order newOrder = mapper.dtoToOrder(updatedOrder);
+		Order newOrder = mapper.orderEntityToPojo(updatedOrder);
 
 		return newOrder;
 	}
@@ -61,9 +61,9 @@ public class JpaOrderRepository implements OrderRepository {
 	@Override
 	public List<Order> getAllOrders() {
 		List<Order> orders = new ArrayList<>();
-		Iterable<OrderDto> iterable = orderRepo.findAll();
+		Iterable<OrderEntity> iterable = orderRepo.findAll();
 
-		iterable.forEach(orderDto -> orders.add(mapper.dtoToOrder(orderDto)));
+		iterable.forEach(entity -> orders.add(mapper.orderEntityToPojo(entity)));
 		return orders;
 	}
 }

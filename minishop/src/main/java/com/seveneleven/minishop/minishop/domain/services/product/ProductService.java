@@ -1,4 +1,4 @@
-package com.seveneleven.minishop.minishop.services.product;
+package com.seveneleven.minishop.minishop.domain.services.product;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import com.seveneleven.minishop.minishop.domain.exceptions.ExistOrderItemInclude
 import com.seveneleven.minishop.minishop.domain.order.Product;
 
 public interface ProductService {
-	String addProduct(Product product);
+	long addProduct(Product product);
 
 	void removeProduct(String id) throws ExistOrderItemIncludesProductException;
 

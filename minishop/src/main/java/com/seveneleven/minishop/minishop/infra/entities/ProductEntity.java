@@ -1,10 +1,14 @@
-package com.seveneleven.minishop.minishop.infra.dto;
+package com.seveneleven.minishop.minishop.infra.entities;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -19,17 +23,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
-@Entity
+@Entity(name = "products")
 @Data
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProductDto {
+public class ProductEntity {
 	@Id
-	// @GeneratedValue(generator = "uuid")
-	// @GenericGenerator(name = "uuid", strategy = "uuid2")
-	private final String id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private final long id;
 
 	@NotNull
 	@NotBlank
@@ -47,7 +50,10 @@ public class ProductDto {
 	private final BigDecimal price;
 
 	@NotNull
-	private final Boolean instock;
+	private final Boolean inStock;
+
+	@OneToMany(mappedBy = "product")
+	private final List<OrderItemEntity> orderItems;
 
 	@UpdateTimestamp
 	private Date updatedAt;

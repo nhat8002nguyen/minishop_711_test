@@ -26,7 +26,7 @@ public class Product {
 
 	private final BigDecimal price;
 
-	private final Boolean instock;
+	private final Boolean inStock;
 
 	private final Date updatedAt;
 
