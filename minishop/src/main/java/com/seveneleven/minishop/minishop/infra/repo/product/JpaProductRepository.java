@@ -33,7 +33,7 @@ public class JpaProductRepository implements ProductRepository {
 	}
 
 	@Override
-	public void removeProduct(String id) throws ExistOrderItemIncludesProductException {
+	public void removeProduct(long id) throws ExistOrderItemIncludesProductException {
 		try {
 			findProductEntityById(id);
 			jpaDBProductRepo.deleteById(id);
@@ -42,7 +42,7 @@ public class JpaProductRepository implements ProductRepository {
 		}
 	}
 
-	private ProductEntity findProductEntityById(String id) {
+	private ProductEntity findProductEntityById(long id) {
 		Optional<ProductEntity> optional = jpaDBProductRepo.findById(id);
 		if (optional.isEmpty()) {
 			throw new ProductNotFoundException(id);
@@ -51,7 +51,7 @@ public class JpaProductRepository implements ProductRepository {
 	}
 
 	@Override
-	public Product updateProduct(String id, Product product) {
+	public Product updateProduct(long id, Product product) {
 		ProductEntity oldProductEntity = findProductEntityById(id);
 
 		ProductEntity updatedProduct = mapper.updateProductEntityCompletely(
@@ -76,14 +76,14 @@ public class JpaProductRepository implements ProductRepository {
 	}
 
 	@Override
-	public Product getProductDetail(String id) {
+	public Product getProductDetail(long id) {
 		ProductEntity entity = findProductEntityById(id);
 		Product product = mapper.productEntityToPojo(entity);
 		return product;
 	}
 
 	@Override
-	public Product findProductById(String id) {
+	public Product findProductById(long id) {
 		return mapper.productEntityToPojo(findProductEntityById(id));
 	}
 }

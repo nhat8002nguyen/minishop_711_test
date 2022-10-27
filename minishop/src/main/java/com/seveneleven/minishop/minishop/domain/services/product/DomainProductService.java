@@ -20,12 +20,12 @@ public class DomainProductService implements ProductService {
 	}
 
 	@Override
-	public void removeProduct(String id) throws ExistOrderItemIncludesProductException {
+	public void removeProduct(long id) throws ExistOrderItemIncludesProductException {
 		productRepo.removeProduct(id);
 	}
 
 	@Override
-	public Product updateProduct(String id, Product product) {
+	public Product updateProduct(long id, Product product) {
 		return productRepo.updateProduct(id, product);
 	}
 
@@ -39,7 +39,7 @@ public class DomainProductService implements ProductService {
 	}
 
 	@Override
-	public Product getProductDetail(String id) {
+	public Product getProductDetail(long id) {
 		return productRepo.getProductDetail(id);
 	}
 }

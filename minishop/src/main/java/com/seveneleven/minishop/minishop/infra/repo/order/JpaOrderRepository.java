@@ -27,8 +27,8 @@ public class JpaOrderRepository implements OrderRepository {
 
 	@Override
 	public Order createOrder(Order order) {
-		OrderEntity orderDto = mapper.orderPojoToEntity(order);
-		OrderEntity savedOrder = orderRepo.save(orderDto);
+		OrderEntity orderEntity = mapper.orderPojoToEntity(order);
+		OrderEntity savedOrder = orderRepo.save(orderEntity);
 		LOGGER.info("Order was saved: " + savedOrder);
 		return mapper.orderEntityToPojo(savedOrder);
 	}

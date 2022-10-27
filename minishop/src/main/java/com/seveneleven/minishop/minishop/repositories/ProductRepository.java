@@ -6,15 +6,15 @@ import com.seveneleven.minishop.minishop.domain.exceptions.ExistOrderItemInclude
 import com.seveneleven.minishop.minishop.domain.order.Product;
 
 public interface ProductRepository {
-	Product findProductById(String id);
+	Product findProductById(long id);
 
 	Long addProduct(Product product);
 
-	void removeProduct(String id) throws ExistOrderItemIncludesProductException;
+	void removeProduct(long id) throws ExistOrderItemIncludesProductException;
 
-	Product updateProduct(String id, Product product);
+	Product updateProduct(long id, Product product);
 
 	List<Product> getAllProducts();
 
-	Product getProductDetail(String id);
+	Product getProductDetail(long id);
 }

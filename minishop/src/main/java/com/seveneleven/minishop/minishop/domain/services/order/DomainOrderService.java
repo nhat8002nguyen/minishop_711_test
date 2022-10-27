@@ -2,38 +2,29 @@ package com.seveneleven.minishop.minishop.domain.services.order;
 
 import java.util.List;
 
+import com.seveneleven.minishop.minishop.domain.exceptions.order_exceptions.OrderDataNotFoundException;
 import com.seveneleven.minishop.minishop.domain.order.Order;
-import com.seveneleven.minishop.minishop.domain.order.OrderItem;
-import com.seveneleven.minishop.minishop.repositories.OrderItemRepository;
 import com.seveneleven.minishop.minishop.repositories.OrderRepository;
 import com.seveneleven.minishop.minishop.repositories.UserRepository;
 
 public class DomainOrderService implements OrderService {
 	private final OrderRepository orderRepository;
 	private final UserRepository userRepository;
-	private final OrderItemRepository orderItemRepository;
 
 	public DomainOrderService(
 			OrderRepository orderRepository,
-			UserRepository userRepository,
-			OrderItemRepository orderItemRepository) {
+			UserRepository userRepository) {
 		this.orderRepository = orderRepository;
 		this.userRepository = userRepository;
-		this.orderItemRepository = orderItemRepository;
 	}
 
 	@Override
 	public Order placeOrder(String username, Order order) {
 		userRepository.findUserByName(username);
 
-		saveOrderItems(order.getOrderItems(), order);
 		Order createdOrder = orderRepository.createOrder(order);
 
 		return createdOrder;
-	}
-
-	private void saveOrderItems(List<OrderItem> orderItems, Order order) {
-		orderItems.forEach(item -> orderItemRepository.save(order, item));
 	}
 
 	@Override
@@ -48,7 +39,13 @@ public class DomainOrderService implements OrderService {
 
 	@Override
 	public List<Order> getOrdersOfUser(String username) {
-		return userRepository.getOrdersByUsername(username);
+		List<Order> orders = userRepository.getOrdersByUsername(username);
+
+		if (orders == null || orders.isEmpty()) {
+			throw new OrderDataNotFoundException();
+		}
+
+		return orders;
 	}
 
 	@Override

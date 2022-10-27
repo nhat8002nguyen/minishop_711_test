@@ -1,11 +1,13 @@
 package com.seveneleven.minishop.minishop.api.exception_handlers;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -31,14 +33,23 @@ public class OrderControllerAdvisor extends ResponseEntityExceptionHandler {
 		return ResponseEntity.noContent().build();
 	}
 
-	@ExceptionHandler(MethodArgumentNotValidException.class)
-	ResponseEntity<?> handleMethodArgumentNotInvalid(MethodArgumentNotValidException ex, WebRequest request) {
+	@Override
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(
+			MethodArgumentNotValidException ex, HttpHeaders headers,
+			HttpStatus status, WebRequest request) {
+
+		Map<String, Object> body = new LinkedHashMap<>();
+		body.put("timestamp", LocalDate.now());
+		body.put("status", status.value());
+
 		List<String> errors = ex.getBindingResult()
 				.getFieldErrors()
 				.stream()
-				.map(err -> err.getDefaultMessage())
+				.map(x -> x.getDefaultMessage())
 				.collect(Collectors.toList());
 
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("errors", errors));
+		body.put("errors", errors);
+
+		return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
 	}
 }

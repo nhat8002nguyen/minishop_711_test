@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class Product {
-	private String id;
+	private long id;
 
 	private final String title;
 

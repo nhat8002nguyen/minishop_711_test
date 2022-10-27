@@ -4,5 +4,5 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.seveneleven.minishop.minishop.infra.entities.ProductEntity;
 
-public interface JpaDBProductRepository extends CrudRepository<ProductEntity, String> {
+public interface JpaDBProductRepository extends CrudRepository<ProductEntity, Long> {
 }

@@ -1,10 +1,13 @@
 package com.seveneleven.minishop.minishop.infra.mappers;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
+import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
 import com.seveneleven.minishop.minishop.domain.order.Order;
@@ -17,34 +20,41 @@ import com.seveneleven.minishop.minishop.infra.entities.ProductEntity;
 import com.seveneleven.minishop.minishop.infra.entities.UserEntity;
 
 @Mapper(imports = UUID.class)
-public interface OrderMapper {
-	public OrderMapper INSTANCE = Mappers.getMapper(OrderMapper.class);
+public abstract class OrderMapper {
+	public static OrderMapper INSTANCE = Mappers.getMapper(OrderMapper.class);
 
-	OrderEntity orderPojoToEntity(Order order);
+	@AfterMapping
+	void setAssociateOrderForOrderItem(@MappingTarget OrderEntity orderItemEntity) {
+		List<OrderItemEntity> orderItemEntities = orderItemEntity.getOrderItems();
+		orderItemEntities.forEach(item -> item.setOrder(orderItemEntity));
+	}
 
-	Order orderEntityToPojo(OrderEntity order);
+	public abstract OrderEntity orderPojoToEntity(Order order);
+
+	public abstract Order orderEntityToPojo(OrderEntity order);
 
 	@Mapping(source = "firstCreatedAt", target = "placedAt")
 	@Mapping(source = "sourceId", target = "id")
-	OrderEntity updateOrderEntity(long sourceId, Date firstCreatedAt, Order order);
+	public abstract OrderEntity updateOrderEntity(long sourceId, Date firstCreatedAt, Order order);
 
-	OrderItem orderItemEntityToPojo(OrderItemEntity entity);
+	public abstract OrderItem orderItemEntityToPojo(OrderItemEntity entity);
 
-	@Mapping(source = "orderItem.id", target = "id")
-	OrderItemEntity orderItemPojoToEntity(Order order, OrderItem orderItem);
+	@Mapping(target = "order", ignore = true)
+	public abstract OrderItemEntity orderItemPojoToEntity(OrderItem orderItem);
 
 	@Mapping(target = "orderItems", ignore = true)
-	ProductEntity productEntityToPojo(Product product);
+	public abstract ProductEntity productEntityToPojo(Product product);
 
 	@Mapping(source = "firstCreatedAt", target = "createdAt")
 	@Mapping(source = "sourceId", target = "id")
 	@Mapping(target = "orderItems", ignore = true)
-	ProductEntity updateProductEntityCompletely(long sourceId, Date firstCreatedAt, Product product);
+	public abstract ProductEntity updateProductEntityCompletely(long sourceId, Date firstCreatedAt,
+			Product product);
 
-	Product productEntityToPojo(ProductEntity productDto);
+	public abstract Product productEntityToPojo(ProductEntity productDto);
 
-	User userEntityToUser(UserEntity userEntity);
+	public abstract User userEntityToUser(UserEntity userEntity);
 
 	@Mapping(target = "orders", ignore = true)
-	UserEntity userPojoToEntity(User pojo);
+	public abstract UserEntity userPojoToEntity(User pojo);
 }

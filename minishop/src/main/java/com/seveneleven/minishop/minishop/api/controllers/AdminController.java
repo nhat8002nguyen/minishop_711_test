@@ -44,7 +44,7 @@ public class AdminController {
 	}
 
 	@PutMapping(value = "/product/{id}")
-	public ResponseEntity<Product> updateProduct(@PathVariable String id, @RequestBody Product product) {
+	public ResponseEntity<Product> updateProduct(@PathVariable long id, @RequestBody Product product) {
 		Product result = productService.updateProduct(id, product);
 		if (result == null) {
 			return ResponseEntity.badRequest().build();
@@ -54,7 +54,7 @@ public class AdminController {
 	}
 
 	@DeleteMapping(path = "/product/{id}")
-	ResponseEntity<?> removeProduct(@PathVariable String id) {
+	ResponseEntity<?> removeProduct(@PathVariable long id) {
 		try {
 			productService.removeProduct(id);
 			return ResponseEntity.noContent().build();

@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.seveneleven.minishop.minishop.infra.repo.customer.JpaDBUserRepository;
 import com.seveneleven.minishop.minishop.infra.repo.product.JpaDBProductRepository;
+import com.seveneleven.minishop.minishop.infra.repo.user.JpaDBUserRepository;
 
 @Configuration
 public class DevConfig {

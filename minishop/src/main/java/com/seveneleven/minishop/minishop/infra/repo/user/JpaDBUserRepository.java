@@ -1,4 +1,4 @@
-package com.seveneleven.minishop.minishop.infra.repo.customer;
+package com.seveneleven.minishop.minishop.infra.repo.user;
 
 import org.springframework.data.repository.CrudRepository;
 
